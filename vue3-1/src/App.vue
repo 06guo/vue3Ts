@@ -12,27 +12,42 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { ref, reactive, toRefs } from 'vue';
 // import HelloWorld from './components/HelloWorld.vue';
-
-export default defineComponent({
+interface DataProps {
+  useTools: string[];
+  selectItem: string;
+  selectItemFun: (index: number) => void;
+}
+export default {
   name: 'App',
   components: {
     // HelloWorld
   },
   setup() {
-    const useTools = ref(['铅笔', '橡皮', '尺子'])
-    const selectItem = ref('')
-    const selectItemFun = (index: number) => {
-      selectItem.value = useTools.value[index]
-    }
+    // const useTools = ref(['铅笔', '橡皮', '尺子'])
+    // const selectItem = ref('')
+    // const selectItemFun = (index: number) => {
+    //   selectItem.value = useTools.value[index]
+    // }
+    // return {
+    //   useTools,
+    //   selectItem,
+    //   selectItemFun
+    // }
+    const data: DataProps = reactive({
+      useTools: ['铅笔', '橡皮', '尺子'],
+      selectItem: '',
+      selectItemFun: (index: number) => {
+        data.selectItem = data.useTools[index]
+      }
+    })
+    const refData = toRefs(data)
     return {
-      useTools,
-      selectItem,
-      selectItemFun
+      ...refData,
     }
   }
-});
+};
 </script>
 
 <style>
