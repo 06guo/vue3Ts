@@ -12,7 +12,16 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, toRefs } from 'vue';
+import { 
+  ref, 
+  reactive, 
+  toRefs, 
+  onMounted, 
+  onBeforeMount, 
+  onUpdated, 
+  onBeforeUpdate,
+  onRenderTracked,
+  onRenderTriggered } from 'vue';
 // import HelloWorld from './components/HelloWorld.vue';
 interface DataProps {
   useTools: string[];
@@ -25,6 +34,8 @@ export default {
     // HelloWorld
   },
   setup() {
+    console.log('开始创建组件-----setup()');
+    
     // const useTools = ref(['铅笔', '橡皮', '尺子'])
     // const selectItem = ref('')
     // const selectItemFun = (index: number) => {
@@ -35,6 +46,28 @@ export default {
     //   selectItem,
     //   selectItemFun
     // }
+    onBeforeMount (() => {
+      console.log('组件挂载到页面之前执行----------onBeforeMount')
+      
+    })
+    onMounted (() => {
+      console.log('组件挂载到页面后执行--------------onMounted')
+    })
+    onBeforeUpdate (() => {
+      console.log('组件更新之前----------------------onBeforeUpdate')
+    })
+    onUpdated (() => {
+      console.log('组件更新之后-----------------------onUpdated')
+      
+    })
+    onRenderTracked ((event) => {
+      console.log(event, 'onRenderTracked-------------------');
+      
+    })
+    onRenderTriggered ((event) => {
+      console.log(event, 'onRenderTriggered-----------------------');
+      
+    })
     const data: DataProps = reactive({
       useTools: ['铅笔', '橡皮', '尺子'],
       selectItem: '',
@@ -46,6 +79,22 @@ export default {
     return {
       ...refData,
     }
+  },
+  beforeCreate () {
+    console.log('beforeCreate');
+  },
+  beforeMount () {
+    console.log('beforeMount'); 
+  },
+  mounted () {
+    console.log('mounted');
+  },
+  beforeUpdate () {
+    console.log('beforeUpdate');
+  },
+  updated () {
+    console.log('updated');
+    
   }
 };
 </script>
