@@ -14,6 +14,11 @@
 
   <div>{{nowTime}}</div>
   <button @click="getTime">获取时间</button>
+
+  <div>
+    <div v-if="loading">loading...</div>
+    <img v-if="loaded" src="result.imgUrl" alt="">
+  </div>
 </template>
 
 <script lang="ts">
@@ -30,6 +35,7 @@ import {
   watch } from 'vue';
 // import HelloWorld from './components/HelloWorld.vue';
 import { nowTime, getTime } from './hooks/useNowTime'
+import useUrlAxios from './hooks/useUrlAxios'
 interface DataProps {
   useTools: string[];
   selectItem: string;
@@ -101,6 +107,9 @@ export default {
     //   console.log(oldValue, '-------------')
     //   document.title = newValue
     // })
+    const {result, loading, loaded} = useUrlAxios('https://apiblog.jspang.com/default/getGirl')
+    console.log(result, 'result')
+    
     watch([storeName, () => data.selectItem], (newValue, oldValue) => {
       console.log('newValue------', newValue)
       console.log('oldValue-------', oldValue)
@@ -110,7 +119,10 @@ export default {
       storeName,
       onChangeAction,
       nowTime,
-      getTime
+      getTime,
+      result,
+      loading,
+      loaded
     }
   },
   beforeCreate () {
