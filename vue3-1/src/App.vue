@@ -9,6 +9,8 @@
     <button v-for="(item, index) in useTools" :key="index" @click="selectItemFun(index)">{{index}} : {{item}}</button>
   </div>
   <div>你选择了{{selectItem}}</div>
+  <div>{{storeName}}</div>
+  <button @click="onChangeAction">点击显示</button>
 </template>
 
 <script lang="ts">
@@ -21,7 +23,8 @@ import {
   onUpdated, 
   onBeforeUpdate,
   onRenderTracked,
-  onRenderTriggered } from 'vue';
+  onRenderTriggered,
+  watch } from 'vue';
 // import HelloWorld from './components/HelloWorld.vue';
 interface DataProps {
   useTools: string[];
@@ -76,8 +79,26 @@ export default {
       }
     })
     const refData = toRefs(data)
+    const storeName = ref('')
+    const onChangeAction = () => {
+      storeName.value = '晨光文具店' + storeName.value
+      document.title = storeName.value
+    }
+    // watch(storeName, (newValue, oldValue) => {
+    //   console.log(newValue, '=============')
+    //   console.log(oldValue, '-------------')
+    //   document.title = newValue
+    // })
+    watch([storeName, () => data.selectItem], (newValue, oldValue) => {
+      console.log('newValue------', newValue)
+      console.log('oldValue-------', oldValue)
+      
+      
+    })
     return {
       ...refData,
+      storeName,
+      onChangeAction
     }
   },
   beforeCreate () {
