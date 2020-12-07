@@ -11,6 +11,9 @@
   <div>你选择了{{selectItem}}</div>
   <div>{{storeName}}</div>
   <button @click="onChangeAction">点击显示</button>
+
+  <div>{{nowTime}}</div>
+  <button @click="getTime">获取时间</button>
 </template>
 
 <script lang="ts">
@@ -26,6 +29,7 @@ import {
   onRenderTriggered,
   watch } from 'vue';
 // import HelloWorld from './components/HelloWorld.vue';
+import { nowTime, getTime } from './hooks/useNowTime'
 interface DataProps {
   useTools: string[];
   selectItem: string;
@@ -84,6 +88,14 @@ export default {
       storeName.value = '晨光文具店' + storeName.value
       document.title = storeName.value
     }
+    // const nowTime = ref('')
+    // const getTime = () => {
+    //   const time = new Date()
+    //   const hours = time.getHours() < 10 ? '0' + time.getHours() : time.getHours()
+    //   const minite = time.getMinutes() < 10 ? '0' + time.getMinutes() : time.getMinutes()
+    //   const seconds = time.getSeconds() < 10 ? '0' + time.getSeconds() : time.getSeconds()
+    //   nowTime.value = hours + ':' + minite + ':' + seconds
+    // }
     // watch(storeName, (newValue, oldValue) => {
     //   console.log(newValue, '=============')
     //   console.log(oldValue, '-------------')
@@ -92,13 +104,13 @@ export default {
     watch([storeName, () => data.selectItem], (newValue, oldValue) => {
       console.log('newValue------', newValue)
       console.log('oldValue-------', oldValue)
-      
-      
     })
     return {
       ...refData,
       storeName,
-      onChangeAction
+      onChangeAction,
+      nowTime,
+      getTime
     }
   },
   beforeCreate () {
