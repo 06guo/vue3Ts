@@ -2,6 +2,7 @@
   <img alt="Vue logo" src="./assets/logo.png">
   <!-- <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
   <div>
+    <model></model>
     <h2>欢迎光临文具店</h2>
     <div>请选择文具</div>
   </div>
@@ -35,7 +36,8 @@ import {
   watch } from 'vue';
 // import HelloWorld from './components/HelloWorld.vue';
 import { nowTime, getTime } from './hooks/useNowTime'
-import useUrlAxios from './hooks/useUrlAxios'
+// import useUrlAxios from './hooks/useUrlAxios'
+import model from './components/Model.vue'
 interface DataProps {
   useTools: string[];
   selectItem: string;
@@ -45,6 +47,7 @@ export default {
   name: 'App',
   components: {
     // HelloWorld
+    model
   },
   setup() {
     console.log('开始创建组件-----setup()');
@@ -107,8 +110,7 @@ export default {
     //   console.log(oldValue, '-------------')
     //   document.title = newValue
     // })
-    const {result, loading, loaded} = useUrlAxios('https://apiblog.jspang.com/default/getGirl')
-    console.log(result, 'result')
+    // const {result, loading, loaded} = useUrlAxios('https://apiblog.jspang.com/default/getGirl')
     
     watch([storeName, () => data.selectItem], (newValue, oldValue) => {
       console.log('newValue------', newValue)
@@ -120,9 +122,9 @@ export default {
       onChangeAction,
       nowTime,
       getTime,
-      result,
-      loading,
-      loaded
+      // result,
+      // loading,
+      // loaded
     }
   },
   beforeCreate () {
