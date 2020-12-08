@@ -15,7 +15,26 @@
 
   <div>{{nowTime}}</div>
   <button @click="getTime">获取时间</button>
-
+  <div>
+    <Suspense>
+      <template #default>
+        <AsyncShow />
+      </template>
+      <template #fallback>
+        <h1>loading...</h1>
+      </template>
+    </Suspense>
+  </div>
+  <div>
+    <Suspense>
+      <template #default>
+        <GirlShow />
+      </template>
+      <template #fallback>
+        loading...
+      </template>
+    </Suspense>
+  </div>
   <div>
     <div v-if="loading">loading...</div>
     <img v-if="loaded" src="result.imgUrl" alt="">
@@ -38,6 +57,8 @@ import {
 import { nowTime, getTime } from './hooks/useNowTime'
 // import useUrlAxios from './hooks/useUrlAxios'
 import model from './components/Model.vue'
+import AsyncShow from './components/AsyncShow.vue'
+import GirlShow from './components/GirlShow.vue'
 interface DataProps {
   useTools: string[];
   selectItem: string;
@@ -47,7 +68,9 @@ export default {
   name: 'App',
   components: {
     // HelloWorld
-    model
+    model,
+    AsyncShow,
+    GirlShow
   },
   setup() {
     console.log('开始创建组件-----setup()');
